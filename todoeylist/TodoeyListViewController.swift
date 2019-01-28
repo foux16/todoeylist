@@ -11,7 +11,7 @@ import UIKit
 class TodoeyListViewController: UITableViewController {
 
     //Criacao de variaveis
-    let itemArray = ["Find Mike", "Buy Eggos", "Destroy Demorgogon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demorgogon"]
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -44,5 +44,28 @@ class TodoeyListViewController: UITableViewController {
 
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    //MARK - Add New Itemms
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        let alert = UIAlertController(title: "Add New Today Item", message: "", preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen when the user toches de Add new Item
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+            
+        }
+        alert.addAction(action)
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        present(alert, animated: true, completion: nil)
+        
+    }
 }
+
+
 
