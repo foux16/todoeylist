@@ -11,15 +11,34 @@ import UIKit
 class TodoeyListViewController: UITableViewController {
 
     //Criacao de variaveis
-    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demorgogon"]
+    var itemArray = [Item]()
+//    let encodedData = NSKeyedArchiver.archivedData(withRootObject: )
     let userDefault = UserDefaults.standard
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        if let items = userDefault.array(forKey: "TodoListArray") as? [String] {
+//        if let items = userDefault.array(forKey: "TodoListArray") as? [String] {
+//            itemArray = items
+//        }
+        let newItem = Item()
+        newItem.title = "Find Mike"
+        itemArray.append(newItem)
+        
+        let newItem2 = Item()
+        newItem2.title = "Buy Eggos"
+        itemArray.append(newItem2)
+        
+        let newItem3 = Item()
+        newItem3.title = "Destroy Demorgogon"
+        itemArray.append(newItem3)
+        
+        if let items = userDefault.array(forKey: "TodoListArray") as? [Item] {
             itemArray = items
         }
+        
+        
     }
 
     //MARK - Table View Datasource Methods
@@ -31,8 +50,12 @@ class TodoeyListViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
-        cell.textLabel?.text = itemArray[indexPath.row]
+        let item = itemArray[indexPath.row]
         
+        cell.textLabel?.text = item.title
+        
+        cell.accessoryType = item.done ? .checkmark : .none
+       
         return cell
         
     }
@@ -41,12 +64,9 @@ class TodoeyListViewController: UITableViewController {
     //Metodo que verifica qual celula foi selecionada.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //Utilizando uma caracteristica da table view chamada acessory para marcar/desmarcar as tarefas selecionadas.
-        if tableView.cellForRow(at: indexPath)?.accessoryType == .checkmark{
-            tableView.cellForRow(at: indexPath)?.accessoryType = .none
-        } else {
-            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        }
-
+        
+        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
+        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
     }
     //MARK - Add New Itemms
@@ -58,7 +78,11 @@ class TodoeyListViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //what will happen when the user toches de Add new Item
-            self.itemArray.append(textField.text!)
+            let newItem = Item()
+            
+            newItem.title = textField.text!
+            
+            self.itemArray.append(newItem)
             self.userDefault.set(self.itemArray, forKey: "TodoListArray")
             self.tableView.reloadData()
             
