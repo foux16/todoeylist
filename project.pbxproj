@@ -56,15 +56,47 @@
 		9DA03AC321FF4B60002D80DC /* todoeylist */ = {
 			isa = PBXGroup;
 			children = (
+				9DC233F12202337F00B91C2B /* Controller */,
+				9DC233F22202339700B91C2B /* View */,
+				9DC233F3220233A600B91C2B /* Supporting Files */,
+				9DC233F4220233B400B91C2B /* Model */,
+			);
+			path = todoeylist;
+			sourceTree = "<group>";
+		};
+		9DC233F12202337F00B91C2B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
 				9DA03AC421FF4B60002D80DC /* AppDelegate.swift */,
 				9DA03AC621FF4B60002D80DC /* TodoeyListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9DC233F22202339700B91C2B /* View */ = {
+			isa = PBXGroup;
+			children = (
 				9DA03AC821FF4B60002D80DC /* Main.storyboard */,
 				9DA03ACB21FF4B62002D80DC /* Assets.xcassets */,
 				9DA03ACD21FF4B62002D80DC /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9DC233F3220233A600B91C2B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
 				9DA03AD021FF4B62002D80DC /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9DC233F4220233B400B91C2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				9DC233EF2201E81200B91C2B /* Item.swift */,
 			);
-			path = todoeylist;
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3SZG9KNYY3;
-				INFOPLIST_FILE = todoeylist/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/todoeylist/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +338,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3SZG9KNYY3;
-				INFOPLIST_FILE = todoeylist/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/todoeylist/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
