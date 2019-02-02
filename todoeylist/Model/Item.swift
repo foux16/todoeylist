@@ -8,19 +8,9 @@
 
 import Foundation
 
-class Item /*: NSObject, NSCoding*/ {
+class Item : Codable {
     
     var title : String = ""
     var done : Bool = false
     
-//    func encode(with aCoder: NSCoder) {
-//        aCoder.encode(self.title, forKey: "title")
-//        aCoder.encode(self.done, forKey: "done")
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        self.title = aDecoder.decodeObject(forKey: "title") as! String
-//        self.done = aDecoder.decodeObject(forKey: "done") as! Bool
-//    }
-//
 }

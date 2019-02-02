@@ -12,32 +12,15 @@ class TodoeyListViewController: UITableViewController {
 
     //Criacao de variaveis
     var itemArray = [Item]()
-//    let encodedData = NSKeyedArchiver.archivedData(withRootObject: )
-    let userDefault = UserDefaults.standard
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-//        if let items = userDefault.array(forKey: "TodoListArray") as? [String] {
-//            itemArray = items
-//        }
-        let newItem = Item()
-        newItem.title = "Find Mike"
-        itemArray.append(newItem)
         
-        let newItem2 = Item()
-        newItem2.title = "Buy Eggos"
-        itemArray.append(newItem2)
-        
-        let newItem3 = Item()
-        newItem3.title = "Destroy Demorgogon"
-        itemArray.append(newItem3)
-        
-        if let items = userDefault.array(forKey: "TodoListArray") as? [Item] {
-            itemArray = items
-        }
-        
+        //print(dataFilePath)
+       loadItems()
         
     }
 
@@ -66,8 +49,14 @@ class TodoeyListViewController: UITableViewController {
         //Utilizando uma caracteristica da table view chamada acessory para marcar/desmarcar as tarefas selecionadas.
         
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        tableView.reloadData()
+        
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        saveItems()
+        
+        tableView.reloadData()
+        
+       
     }
     //MARK - Add New Itemms
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
@@ -83,7 +72,9 @@ class TodoeyListViewController: UITableViewController {
             newItem.title = textField.text!
             
             self.itemArray.append(newItem)
-            self.userDefault.set(self.itemArray, forKey: "TodoListArray")
+          
+            self.saveItems()
+            
             self.tableView.reloadData()
             
         }
@@ -93,8 +84,33 @@ class TodoeyListViewController: UITableViewController {
             textField = alertTextField
         }
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func saveItems() {
+        let encoder = PropertyListEncoder()
+        
+        do{
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+        } catch{
+            print("Error encoding item array, \(error)")
+        }
+    }
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            do{
+                itemArray = try decoder.decode([Item].self, from: data)
+                
+            } catch {
+                print ("Error decoding item array, \(error)")
+            }
+        }
+        
         
     }
+    
 }
 
 
